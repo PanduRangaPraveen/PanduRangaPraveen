@@ -1,0 +1,36 @@
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+import matplotlib.pyplot as plt
+
+# Load a sample dataset (Iris dataset as an example)
+data = load_iris()
+X = data.data
+y = data.target
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train a decision tree classifier
+clf = DecisionTreeClassifier()
+clf.fit(X_train, y_train)
+
+# Visualize the decision tree (for interpretability)
+plt.figure(figsize=(10, 7))
+plot_tree(clf, filled=True, feature_names=data.feature_names, class_names=data.target_names)
+plt.show()
+
+# Make predictions on the test set
+y_pred = clf.predict(X_test)
+
+# Evaluate the model
+accuracy = clf.score(X_test, y_test)
+print("Accuracy:", accuracy)
+
+# Interpretation of the decision tree
+print("Interpretation:")
+print("This decision tree is a simple model used for disease diagnosis based on features such as sepal length, sepal width, petal length, and petal width.")
+print("Each internal node represents a decision based on a feature and a threshold.")
+print("Each leaf node represents a predicted class.")
+print("By following the path from the root to a leaf, you can understand the reasoning behind the diagnosis.")
